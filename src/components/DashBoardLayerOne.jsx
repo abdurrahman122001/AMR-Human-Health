@@ -5,6 +5,7 @@ import AntimicrobialProfile from "../components/AntimicrobialProfile";
 import HospitalInfectionProfile from "../components/HospitalInfectionProfile";
 import Overview from "../components/Overview";
 import MDRProfileMain from "../components/MDRProfileMain";
+import PathogenProfile from "../components/PathogenProfile";
 import {
   TestTube,
   Eye,
@@ -164,7 +165,7 @@ const DashBoardLayerOne = () => {
           className="p-4 mb-4 rounded-4"
           style={{ backgroundColor: "rgba(186,184,108,0.2)" }}
         >
-          <div className="row g-3">
+          <div className="row g-3 p-3">
             {stats.map((card, i) => (
               <div className="col-12 col-sm-6 col-lg-2" key={i}>
                 <div className="card h-100 border-0 shadow-sm rounded-4">
@@ -321,8 +322,9 @@ const DashBoardLayerOne = () => {
       {activeTab === "antibiotic" && <AntimicrobialProfile />}
       {activeTab === "hospital" && <HospitalInfectionProfile />}
       {activeTab === "mdr" && <MDRProfileMain />}
+      {activeTab === "pathogen" && <PathogenProfile />}
       {activeTab !== "overview" &&
-        !["heatmap", "antibiotic", "hospital", "mdr"].includes(activeTab) && (
+        !["heatmap", "antibiotic", "hospital", "mdr", "pathogen"].includes(activeTab) && (
           <div className="card border-0 shadow-sm p-5 text-center bg-white rounded-4">
             <h6 className="text-muted">
               Content for "{activeTab}" tab coming soon...
