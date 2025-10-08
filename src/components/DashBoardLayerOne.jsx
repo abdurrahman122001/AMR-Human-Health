@@ -4,7 +4,7 @@ import ResistanceHeatMap from "../components/ResistanceHeatMap";
 import AntimicrobialProfile from "../components/AntimicrobialProfile";
 import HospitalInfectionProfile from "../components/HospitalInfectionProfile";
 import Overview from "../components/Overview";
-
+import MDRProfileMain from "../components/MDRProfileMain";
 import {
   TestTube,
   Eye,
@@ -320,8 +320,9 @@ const DashBoardLayerOne = () => {
       {activeTab === "heatmap" && <ResistanceHeatMap />}
       {activeTab === "antibiotic" && <AntimicrobialProfile />}
       {activeTab === "hospital" && <HospitalInfectionProfile />}
+      {activeTab === "mdr" && <MDRProfileMain />}
       {activeTab !== "overview" &&
-        !["heatmap", "antibiotic", "hospital", ""].includes(activeTab) && (
+        !["heatmap", "antibiotic", "hospital", "mdr"].includes(activeTab) && (
           <div className="card border-0 shadow-sm p-5 text-center bg-white rounded-4">
             <h6 className="text-muted">
               Content for "{activeTab}" tab coming soon...
