@@ -4,6 +4,7 @@ import ResistanceHeatMap from "../components/ResistanceHeatMap";
 import AntimicrobialProfile from "../components/AntimicrobialProfile";
 import HospitalInfectionProfile from "../components/HospitalInfectionProfile";
 import Overview from "../components/Overview";
+
 import {
   TestTube,
   Eye,
@@ -192,7 +193,7 @@ const DashBoardLayerOne = () => {
       )}
 
       {/* ===== NAV TABS - EXACT STYLING FROM IMAGE ===== */}
-      <div className="mb-6" style={{ padding: "0 8px" }}>
+      <div className="mb-6 mt-20" style={{ padding: "0 8px" }}>
         <div className="d-flex flex-wrap align-items-center gap-1" style={{ rowGap: "8px" }}>
           <button
             onClick={() => setActiveTab('overview')}
@@ -320,7 +321,7 @@ const DashBoardLayerOne = () => {
       {activeTab === "antibiotic" && <AntimicrobialProfile />}
       {activeTab === "hospital" && <HospitalInfectionProfile />}
       {activeTab !== "overview" &&
-        !["heatmap", "antibiotic", "hospital"].includes(activeTab) && (
+        !["heatmap", "antibiotic", "hospital", ""].includes(activeTab) && (
           <div className="card border-0 shadow-sm p-5 text-center bg-white rounded-4">
             <h6 className="text-muted">
               Content for "{activeTab}" tab coming soon...
