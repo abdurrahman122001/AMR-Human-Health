@@ -298,9 +298,11 @@ const MasterLayout = ({ children }) => {
         </div>
       </aside>
 
-      <main
-        className={sidebarActive ? "dashboard-main active" : "dashboard-main"}
-      >
+<main
+  className={
+    sidebarActive ? "dashboard-main active bg-white" : "dashboard-main bg-white"
+  }
+>
         <div className='navbar-header'>
           <div className='row align-items-center justify-content-between'>
             <div className='col-auto'>

@@ -4,6 +4,14 @@ import ResistanceHeatMap from "../components/ResistanceHeatMap";
 import AntimicrobialProfile from "../components/AntimicrobialProfile";
 import HospitalInfectionProfile from "../components/HospitalInfectionProfile";
 import Overview from "../components/Overview";
+import {
+  TestTube,
+  Eye,
+  Building2,
+  BarChart3,
+  Shield,
+  AlertTriangle,
+} from "lucide-react";
 
 const DashBoardLayerOne = () => {
   const [activeTab, setActiveTab] = useState("overview");
@@ -21,22 +29,24 @@ const DashBoardLayerOne = () => {
         if (res.data?.success && res.data?.data) {
           const apiData = res.data.data;
 
-          // ✅ Create dynamic summary cards based on your API structure
           const summaryCards = [
             {
               title: "Total Isolates",
-              value: apiData.totalRows || "5,053",
-              desc: "Laboratory confirmed isolates",
+              value: apiData.totalRows || "10,894",
+              desc: "Laboratory specimens",
+              icon: <TestTube size={18} />,
             },
             {
               title: "Organisms",
-              value: apiData.columns?.length || "75",
-              desc: "Under characterization",
+              value: apiData.columns?.length || "115",
+              desc: "Under surveillance",
+              icon: <Eye size={18} />,
             },
             {
               title: "Surveillance Sites",
-              value: apiData.sites || "10",
-              desc: "Across all regions",
+              value: apiData.sites || "12",
+              desc: "Institutions reporting",
+              icon: <Building2 size={18} />,
             },
             {
               title: "Average Resistance",
@@ -46,18 +56,23 @@ const DashBoardLayerOne = () => {
                     .map((r) => Number(r["Resistance (%)"] || 0))
                     .reduce((a, b) => a + b, 0) /
                   (apiData.rows?.length || 1)
-                ).toFixed(1)}%` || "31%",
-              desc: "Across key pathogens",
+                ).toFixed(1)}%` || "80.8%",
+              desc: "Pathogens with 30+ isolates",
+              icon: <BarChart3 size={18} />,
             },
             {
-              title: "MRSA Incidence",
-              value: apiData.mrsaRate || "18.6",
+              title: "MDRO Incidence",
+              value: apiData.mrsaRate || "41.7",
               desc: "per 1,000 admissions",
+              icon: <Shield size={18} />,
+              warning: true,
             },
             {
               title: "MDR Bacteria",
-              value: apiData.mdrRate || "2.4%",
-              desc: "Multidrug-resistant isolates",
+              value: apiData.mdrRate || "5.3%",
+              desc: "Indicator bacteria isolates",
+              icon: <AlertTriangle size={18} />,
+              warning: true,
             },
           ];
 
@@ -68,37 +83,44 @@ const DashBoardLayerOne = () => {
       } catch (err) {
         console.error(err);
         setError("Failed to load dashboard data");
-        // fallback static cards if API fails
         setStats([
           {
             title: "Total Isolates",
-            value: "5,053",
-            desc: "Laboratory confirmed isolates",
+            value: "10,894",
+            desc: "Laboratory specimens",
+            icon: <TestTube size={18} />,
           },
           {
             title: "Organisms",
-            value: "75",
-            desc: "Under characterization",
+            value: "115",
+            desc: "Under surveillance",
+            icon: <Eye size={18} />,
           },
           {
             title: "Surveillance Sites",
-            value: "10",
-            desc: "Across all regions",
+            value: "12",
+            desc: "Institutions reporting",
+            icon: <Building2 size={18} />,
           },
           {
             title: "Average Resistance",
-            value: "31%",
-            desc: "Across key pathogens",
+            value: "80.8%",
+            desc: "Pathogens with 30+ isolates",
+            icon: <BarChart3 size={18} />,
           },
           {
-            title: "MRSA Incidence",
-            value: "18.6",
+            title: "MDRO Incidence",
+            value: "41.7",
             desc: "per 1,000 admissions",
+            icon: <Shield size={18} />,
+            warning: true,
           },
           {
             title: "MDR Bacteria",
-            value: "2.4%",
-            desc: "Multidrug-resistant isolates",
+            value: "5.3%",
+            desc: "Indicator bacteria isolates",
+            icon: <AlertTriangle size={18} />,
+            warning: true,
           },
         ]);
       } finally {
@@ -110,17 +132,22 @@ const DashBoardLayerOne = () => {
   }, []);
 
   return (
-    <div className="dashboard-container bg-light min-vh-100 p-4">
+    <div className="dashboard-container min-vh-100 p-4" style={{ backgroundColor: "white" }}>
       {/* ===== HEADER ===== */}
       <div className="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
         <div>
-          <h4 className="fw-bold mb-1 text-dark">
-            Antimicrobial Resistance Dashboard
-          </h4>
+          <p className="fw-bold mb-1 text-dark" style={{fontSize: "20px"}}>
+            Antimicrobial Resistance Dashboard - Human Health
+          </p>
           <small className="text-muted">
-            Last updated: Server version live · Database
+            Last updated: 29 Sept 2025 at 6:00 PM
           </small>
         </div>
+        <img
+          src="/gass-logo.png"
+          alt="GASS Logo"
+          style={{ height: "40px", objectFit: "contain" }}
+        />
       </div>
 
       {/* ===== SUMMARY CARDS ===== */}
@@ -132,55 +159,159 @@ const DashBoardLayerOne = () => {
       ) : error ? (
         <div className="alert alert-danger text-center">{error}</div>
       ) : (
-        <div className="row g-3 mb-4">
-          {stats.map((card, i) => (
-            <div className="col-12 col-sm-6 col-xl-2" key={i}>
-              <div className="card dashboard-card h-100 border-0 shadow-sm">
-                <div className="card-body p-3 text-center">
-                  <h6 className="text-muted small mb-1">{card.title}</h6>
-                  <h5 className="fw-bold mb-1 text-dark">{card.value}</h5>
-                  <small className="text-secondary">{card.desc}</small>
+        <div
+          className="p-4 mb-4 rounded-4"
+          style={{ backgroundColor: "rgba(186,184,108,0.2)" }}
+        >
+          <div className="row g-3">
+            {stats.map((card, i) => (
+              <div className="col-12 col-sm-6 col-lg-2" key={i}>
+                <div className="card h-100 border-0 shadow-sm rounded-4">
+                  <div className="card-body p-3">
+                    <div className="d-flex justify-content-between align-items-start mb-2">
+                      <p className="text-muted fw-semibold small mb-0" style={{fontSize: "12px"}}>
+                        {card.title}
+                      </p>
+                      <span className="text-secondary">{card.icon}</span>
+                    </div>
+                    <p
+                      className={`fw-bold mb-1 ${
+                        card.warning ? "text-danger" : "text-dark"
+                      }`}
+                      style={{ fontSize: "18px" }}
+                    >
+                      {card.value}
+                    </p>
+                    <small className="text-muted">{card.desc}</small>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
 
-      {/* ===== NAV TABS ===== */}
-      <div className="p-3 rounded-4 mb-4">
-        <ul className="nav nav-pills justify-content-between flex-nowrap">
-          {[
-            { id: "overview", label: "Overview" },
-            { id: "heatmap", label: "Resistance Heat Map" },
-            { id: "antibiotic", label: "Antibiotic Profile" },
-            { id: "pathogen", label: "Pathogen Profile" },
-            { id: "mdr", label: "Multi-Drug Resistance Profile" },
-            { id: "hospital", label: "Hospital-Acquired Infection Profile" },
-          ].map((tab) => (
-            <li
-              className="nav-item flex-fill"
-              key={tab.id}
-              style={{ minWidth: "160px" }}
-            >
-              <button
-                onClick={() => setActiveTab(tab.id)}
-                className={`nav-link fw-semibold w-100 rounded-3 border ${
-                  activeTab === tab.id
-                    ? "bg-dark text-white"
-                    : "bg-light text-dark"
-                }`}
-                style={{
-                  padding: "0.9rem 1.2rem",
-                  whiteSpace: "nowrap",
-                  textAlign: "center",
-                }}
-              >
-                {tab.label}
-              </button>
-            </li>
-          ))}
-        </ul>
+      {/* ===== NAV TABS - EXACT STYLING FROM IMAGE ===== */}
+      <div className="mb-6" style={{ padding: "0 8px" }}>
+        <div className="d-flex flex-wrap align-items-center gap-1" style={{ rowGap: "8px" }}>
+          <button
+            onClick={() => setActiveTab('overview')}
+            className={`fw-semibold border rounded-2 px-3 py-2 ${
+              activeTab === 'overview' 
+                ? 'bg-black text-white border-primary' 
+                : 'bg-white text-dark border-gray-300'
+            }`}
+            style={{
+              fontSize: "13px",
+              lineHeight: "1.2",
+              minHeight: "36px",
+              whiteSpace: "nowrap",
+              transition: "all 0.2s ease"
+            }}
+          >
+            Overview
+          </button>
+          
+          <span className="mx-1 text-muted" style={{ fontSize: "14px" }}></span>
+          
+          <button
+            onClick={() => setActiveTab('heatmap')}
+            className={`fw-semibold border rounded-2 px-3 py-2 ${
+              activeTab === 'heatmap' 
+                ? 'bg-black text-white border-primary' 
+                : 'bg-white text-dark border-gray-300'
+            }`}
+            style={{
+              fontSize: "13px",
+              lineHeight: "1.2",
+              minHeight: "36px",
+              whiteSpace: "nowrap",
+              transition: "all 0.2s ease"
+            }}
+          >
+            Resistance Heat Map
+          </button>
+          
+          <span className="mx-1 text-muted" style={{ fontSize: "14px" }}></span>
+          
+          <button
+            onClick={() => setActiveTab('antibiotic')}
+            className={`fw-semibold border rounded-2 px-3 py-2 ${
+              activeTab === 'antibiotic' 
+                ? 'bg-black text-white border-primary' 
+                : 'bg-white text-dark border-gray-300'
+            }`}
+            style={{
+              fontSize: "13px",
+              lineHeight: "1.2",
+              minHeight: "36px",
+              whiteSpace: "nowrap",
+              transition: "all 0.2s ease"
+            }}
+          >
+            Antimicrobial Profile
+          </button>
+          
+          <span className="mx-1 text-muted" style={{ fontSize: "14px" }}></span>
+          
+          <button
+            onClick={() => setActiveTab('pathogen')}
+            className={`fw-semibold border rounded-2 px-3 py-2 ${
+              activeTab === 'pathogen' 
+                ? 'bg-black text-white border-primary' 
+                : 'bg-white text-dark border-gray-300'
+            }`}
+            style={{
+              fontSize: "13px",
+              lineHeight: "1.2",
+              minHeight: "36px",
+              whiteSpace: "nowrap",
+              transition: "all 0.2s ease"
+            }}
+          >
+            Pathogen Profile
+          </button>
+          
+          <span className="mx-1 text-muted" style={{ fontSize: "14px" }}></span>
+          
+          <button
+            onClick={() => setActiveTab('mdr')}
+            className={`fw-semibold border rounded-2 px-3 py-2 ${
+              activeTab === 'mdr' 
+                ? 'bg-black text-white border-primary' 
+                : 'bg-white text-dark border-gray-300'
+            }`}
+            style={{
+              fontSize: "13px",
+              lineHeight: "1.2",
+              minHeight: "36px",
+              whiteSpace: "nowrap",
+              transition: "all 0.2s ease"
+            }}
+          >
+            Multi-Drug Resistance Profile
+          </button>
+          
+          <span className="mx-1 text-muted" style={{ fontSize: "14px" }}></span>
+          
+          <button
+            onClick={() => setActiveTab('hospital')}
+            className={`fw-semibold border rounded-2 px-3 py-2 ${
+              activeTab === 'hospital' 
+                ? 'bg-black text-white border-primary' 
+                : 'bg-white text-dark border-gray-300'
+            }`}
+            style={{
+              fontSize: "13px",
+              lineHeight: "1.2",
+              minHeight: "36px",
+              whiteSpace: "nowrap",
+              transition: "all 0.2s ease"
+            }}
+          >
+            Hospital-Acquired Infection
+          </button>
+        </div>
       </div>
 
       {/* ===== TAB CONTENT ===== */}
@@ -196,19 +327,6 @@ const DashBoardLayerOne = () => {
             </h6>
           </div>
         )}
-
-      {/* ===== STYLES ===== */}
-      <style jsx>{`
-        .card {
-          border-radius: 16px;
-        }
-        .nav-link {
-          transition: all 0.2s ease;
-        }
-        .nav-link:hover {
-          transform: translateY(-2px);
-        }
-      `}</style>
     </div>
   );
 };

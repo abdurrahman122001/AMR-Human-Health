@@ -182,15 +182,15 @@ const Overview = () => {
           <div className="row g-3">
             <div className="col-md-4">
               <div className="p-3 rounded-3 bg-light">
-                <h6 className="fw-semibold text-primary mb-3 small">
+                <p style={{fontSize: "12px"}} className="fw-semibold text-primary mb-3 small">
                   Top 5 Pathogens{" "}
                   <span className="text-muted">
                     • {rows.length} total isolates
                   </span>
-                </h6>
+                </p>
                 <ul className="list-unstyled small mb-0">
                   {topPathogens.map((p, i) => (
-                    <li key={i}>
+                    <li style={{fontSize: "12px"}} key={i}>
                       {p.name} – {p.count}
                     </li>
                   ))}
@@ -200,13 +200,13 @@ const Overview = () => {
 
             <div className="col-md-4">
               <div className="p-3 rounded-3 bg-danger-subtle">
-                <h6 className="fw-semibold text-danger mb-3 small">
+                <p style={{fontSize: "12px"}} className="fw-semibold text-danger mb-3 small">
                   Top Resistance Signals{" "}
                   <span className="text-muted">• n={rows.length} tested</span>
-                </h6>
+                </p>
                 <ul className="list-unstyled small mb-0">
                   {topResistance.map((r, i) => (
-                    <li key={i}>{r.combo}</li>
+                    <li style={{fontSize: "12px"}} key={i}>{r.combo}</li>
                   ))}
                 </ul>
               </div>
@@ -285,43 +285,43 @@ const Overview = () => {
             Resistance distribution among pathogen–antibiotic combinations
           </p>
         </div>
-                           <div className="row g-3 justify-content-center">
-                        <div className="col-6 col-sm-4 col-md-2">
-                            <div className="p-3 bg-success-subtle rounded-3 text-center border">
-                                <h6 className="fw-bold text-success mb-1">62.6%</h6>
-                                <div className="small text-muted">Susceptible</div>
-                                <small className="text-muted">717 isolates</small>
-                            </div>
-                        </div>
-                        <div className="col-6 col-sm-4 col-md-2">
-                            <div className="p-3 bg-warning-subtle rounded-3 text-center border">
-                                <h6 className="fw-bold text-warning mb-1">2.4%</h6>
-                                <div className="small text-muted">Intermediate</div>
-                                <small className="text-muted">27 isolates</small>
-                            </div>
-                        </div>
-                        <div className="col-6 col-sm-4 col-md-2">
-                            <div className="p-3 bg-danger-subtle rounded-3 text-center border">
-                                <h6 className="fw-bold text-danger mb-1">35.0%</h6>
-                                <div className="small text-muted">Resistant</div>
-                                <small className="text-muted">401 isolates</small>
-                            </div>
-                        </div>
-                        <div className="col-6 col-sm-4 col-md-2">
-                            <div className="p-3 bg-light rounded-3 text-center border">
-                                <h6 className="fw-bold text-dark mb-1">1145</h6>
-                                <div className="small text-muted">Total Tested</div>
-                                <small className="text-muted">Valid results only</small>
-                            </div>
-                        </div>
-                        <div className="col-6 col-sm-4 col-md-2">
-                            <div className="p-3 bg-primary-subtle rounded-3 text-center border">
-                                <h6 className="fw-bold text-primary mb-1">1541</h6>
-                                <div className="small text-muted">Total Specimens</div>
-                                <small className="text-muted">All organism isolates</small>
-                            </div>
-                        </div>
-                        </div>
+        <div className="row g-3 justify-content-center">
+          <div className="col-6 col-sm-4 col-md-2">
+            <div className="p-3 bg-success-subtle rounded-3 text-center border">
+              <h6 className="fw-bold text-success mb-1">62.6%</h6>
+              <div className="small text-muted">Susceptible</div>
+              <small className="text-muted">717 isolates</small>
+            </div>
+          </div>
+          <div className="col-6 col-sm-4 col-md-2">
+            <div className="p-3 bg-warning-subtle rounded-3 text-center border">
+              <h6 className="fw-bold text-warning mb-1">2.4%</h6>
+              <div className="small text-muted">Intermediate</div>
+              <small className="text-muted">27 isolates</small>
+            </div>
+          </div>
+          <div className="col-6 col-sm-4 col-md-2">
+            <div className="p-3 bg-danger-subtle rounded-3 text-center border">
+              <h6 className="fw-bold text-danger mb-1">35.0%</h6>
+              <div className="small text-muted">Resistant</div>
+              <small className="text-muted">401 isolates</small>
+            </div>
+          </div>
+          <div className="col-6 col-sm-4 col-md-2">
+            <div className="p-3 bg-light rounded-3 text-center border">
+              <h6 className="fw-bold text-dark mb-1">1145</h6>
+              <div className="small text-muted">Total Tested</div>
+              <small className="text-muted">Valid results only</small>
+            </div>
+          </div>
+          <div className="col-6 col-sm-4 col-md-2">
+            <div className="p-3 bg-primary-subtle rounded-3 text-center border">
+              <h6 className="fw-bold text-primary mb-1">1541</h6>
+              <div className="small text-muted">Total Specimens</div>
+              <small className="text-muted">All organism isolates</small>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
